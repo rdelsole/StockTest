@@ -1,0 +1,5 @@
+.idea/
+.gradle/3.5-rc-2
+stock-api/out/
+stock-api/build/
+.gradle/
