@@ -7,6 +7,10 @@ import java.util.Set;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 
+/**
+ * This VO is a standard way to represent request errors
+ * @author Rafael Del Sole
+ */
 public class ResultErrorVO {
 
     private HttpStatus status;

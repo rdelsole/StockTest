@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * This controller represents all operations about Stocks
+ * This controller represents all operations about Stocks API
  * @author Rafael Del Sole
  */
 

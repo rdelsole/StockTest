@@ -8,6 +8,10 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+/**
+ * This VO represents the Stock for all success requests
+ * @author Rafael Del Sole
+ */
 public class ResultStockVO {
 
     private Integer id;

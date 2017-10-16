@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
- * This class is a representation of a StockEntity
+ * This class is a representation of a Stock Table
  * @author Rafael Del Sole
  */
 @Entity

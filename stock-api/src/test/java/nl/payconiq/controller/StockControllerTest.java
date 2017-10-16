@@ -1,7 +1,11 @@
 package nl.payconiq.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.math.BigDecimal;
+import java.util.List;
 import nl.payconiq.request.PostStockVO;
 import nl.payconiq.request.PutStockVO;
 import nl.payconiq.response.ResultStockVO;
@@ -9,11 +13,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -24,17 +25,10 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import java.math.BigDecimal;
-import java.util.List;
-
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-
 public class StockControllerTest {
 
     @Autowired
@@ -45,7 +39,7 @@ public class StockControllerTest {
 
         PostStockVO postStockVO = new PostStockVO();
         postStockVO.setName("Test");
-        postStockVO.setPrice(BigDecimal.TEN);
+        postStockVO.setCurrentPrice(BigDecimal.TEN);
 
         ObjectMapper mapper = new ObjectMapper();
 
@@ -57,7 +51,7 @@ public class StockControllerTest {
         mockMvc.perform(requestBuilder)
             .andExpect(status().isCreated())
             .andExpect(jsonPath("$.name").value(postStockVO.getName()))
-            .andExpect(jsonPath("$.currentPrice").value(postStockVO.getPrice()))
+            .andExpect(jsonPath("$.currentPrice").value(postStockVO.getCurrentPrice()))
             .andReturn();
     }
 
@@ -66,7 +60,7 @@ public class StockControllerTest {
 
         PostStockVO postStockVO = new PostStockVO();
         postStockVO.setName("Test");
-        postStockVO.setPrice(new BigDecimal(-100));
+        postStockVO.setCurrentPrice(new BigDecimal(-100));
 
         ObjectMapper mapper = new ObjectMapper();
 
@@ -83,7 +77,7 @@ public class StockControllerTest {
 
         PostStockVO postStockVO = new PostStockVO();
         postStockVO.setName("");
-        postStockVO.setPrice(new BigDecimal(100));
+        postStockVO.setCurrentPrice(new BigDecimal(100));
 
         ObjectMapper mapper = new ObjectMapper();
 
@@ -166,7 +160,7 @@ public class StockControllerTest {
 
         PutStockVO putStock = new PutStockVO();
         putStock.setId(createdStock.getId());
-        putStock.setPrice(new BigDecimal(1001.30));
+        putStock.setCurrentPrice(new BigDecimal(1001.30));
 
         ObjectMapper mapper = new ObjectMapper();
 
@@ -178,7 +172,7 @@ public class StockControllerTest {
         mockMvc.perform(requestBuilder)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(putStock.getId()))
-                .andExpect(jsonPath("$.currentPrice").value(putStock.getPrice()))
+                .andExpect(jsonPath("$.currentPrice").value(putStock.getCurrentPrice()))
                 .andReturn();
     }
 
@@ -189,7 +183,7 @@ public class StockControllerTest {
 
         PutStockVO putStock = new PutStockVO();
         putStock.setId(100);
-        putStock.setPrice(new BigDecimal(1001.30));
+        putStock.setCurrentPrice(new BigDecimal(1001.30));
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .put("/api/stocks/"+putStock.getId())
@@ -208,7 +202,7 @@ public class StockControllerTest {
 
         PutStockVO putStock = new PutStockVO();
         putStock.setId(createdStock.getId());
-        putStock.setPrice(new BigDecimal(-1001.30));
+        putStock.setCurrentPrice(new BigDecimal(-1001.30));
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .put("/api/stocks/"+putStock.getId())
@@ -222,7 +216,7 @@ public class StockControllerTest {
 
         PostStockVO postStockVO = new PostStockVO();
         postStockVO.setName(name);
-        postStockVO.setPrice(price);
+        postStockVO.setCurrentPrice(price);
 
         ObjectMapper mapper = new ObjectMapper();
 

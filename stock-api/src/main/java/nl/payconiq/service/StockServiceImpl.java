@@ -2,7 +2,6 @@ package nl.payconiq.service;
 
 import static java.util.stream.Collectors.toList;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import javassist.NotFoundException;
 import nl.payconiq.converter.StockConverter;
@@ -11,14 +10,21 @@ import nl.payconiq.repository.StockRepository;
 import nl.payconiq.request.PostStockVO;
 import nl.payconiq.request.PutStockVO;
 import nl.payconiq.response.ResultStockVO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ *
+ */
 
 @Service
 public class StockServiceImpl implements StockService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(StockServiceImpl.class);
 
     @Autowired
     private StockRepository stockRepository;
@@ -37,10 +43,11 @@ public class StockServiceImpl implements StockService {
         StockEntity stock = stockRepository.findOne(stockId);
 
         if (stock == null) {
+            LOGGER.error("m=updateStock error=notFound stockId={}",stockId);
             throw new NotFoundException(String.format("The stock with ID:%1$d doesn't exist ",stockId));
         }
 
-        stock.setCurrentPrice(putStockVO.getPrice());
+        stock.setCurrentPrice(putStockVO.getCurrentPrice());
         stock.setLastUpdate(LocalDateTime.now());
 
         stockRepository.save(stock);
@@ -57,6 +64,7 @@ public class StockServiceImpl implements StockService {
         StockEntity stock = stockRepository.findOne(stockId);
 
         if (stock == null) {
+            LOGGER.error("m=updateStock error=notFound stockId={}",stockId);
             throw new NotFoundException(String.format("The stock with ID:%1$d doesn't exist ",stockId));
         }
 

@@ -4,6 +4,10 @@ import java.math.BigDecimal;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+/**
+ * This VO represents the allowed properties to update a Stock and the validator rules
+ * @author Rafael Del Sole
+ */
 public class PutStockVO {
 
     @NotNull
@@ -12,7 +16,7 @@ public class PutStockVO {
 
     @NotNull
     @Min(value = 0)
-    private BigDecimal price;
+    private BigDecimal currentPrice;
 
     public Integer getId() {
         return id;
@@ -22,11 +26,11 @@ public class PutStockVO {
         this.id = id;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public BigDecimal getCurrentPrice() {
+        return currentPrice;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public void setCurrentPrice(BigDecimal currentPrice) {
+        this.currentPrice = currentPrice;
     }
 }
