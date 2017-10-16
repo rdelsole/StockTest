@@ -3,3 +3,22 @@
 stock-api/out/
 stock-api/build/
 .gradle/
+
+
+# compiled output
+stock-view/dist/
+stock-api/tmp/
+stock-api/out-tsc/
+
+# dependencies
+stock-api/node_modules/*
+*/node_modules/
+
+
+# e2e
+stock-api/e2e/*.js
+stock-api/e2e/*.map
+
+# System Files
+.DS_Store
+Thumbs.db
