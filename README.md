@@ -29,11 +29,11 @@ The API expose 4 methods
 
 > List All - Get - http://stock-api-test.com/api/stocks
 
-> Detail One - Get - http://stock-api-test.com/api/stocks/<ID>
+> Detail One - Get - http://stock-api-test.com/api/stocks/ID
 
 > Create - Post - http://stock-api-test.com/api/stocks/ - JSON {"name":"Test","currentPrice": 100 }
 
-> Update - Put - http://stock-api-test.com/api/stocks/<ID> - JSON {"id":<ID>,"currentPrice": 100 }
+> Update - Put - http://stock-api-test.com/api/stocks/ID - JSON {"id": ID,"currentPrice": 100 }
 
 
 
